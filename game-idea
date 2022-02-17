@@ -1,0 +1,32 @@
+// Module 1 Project - Game
+
+// Game Requirements
+
+// create original game, no clones
+// must be built using Canvas, specifically with a 2d context
+// must have an animation loop
+// needs to be winnable/loosable (or at least complete it)
+// needs to be deployed through Netlify
+// no 3rd party libraries
+// presentations are going to be on Saturday, 5th of March
+
+// Game Idea
+
+// title = The Manager Scavenger
+
+// player = person stuck in a shitty corporate job
+    // image: guy wearing suit on top, basketball shorts on the bottom
+
+// enemy = various enemies, different levels of damage
+    // 50 points: 'boss' or corporate logo type
+    // 30 points: 'projects'
+    // 15 points: 'zoom calls'
+    // 5 points: 'emails'
+
+// defense = 'f***s to give', different levels
+    // player starts with initial count of 100
+    // 5, 10, 15, 20, 25, 50 come flying in inbetween for 'top-ups'
+
+// game-end
+    // you loose when you hit 0
+    // no max. limit
