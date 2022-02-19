@@ -13,7 +13,7 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.screen {
+/* .screen {
   background-color: rgb(245, 133, 217);
   width: 600px;
   height: 600px;
@@ -21,15 +21,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
 
 canvas {
+  background-color: rgb(245, 133, 217);
+  /* background-color: rgb(240, 20, 185); */
 }
 
-button {
+/* button {
   font: inherit;
   background-color: rgb(255, 192, 255);
   color: rgb(233, 57, 189);
   border: 0;
   padding: 1em;
-}
+} */
