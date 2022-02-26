@@ -44,10 +44,12 @@ body h5 {
   background-color: rgb(245, 133, 217);
   width: 700px;
   height: 500px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .screen h2 {
@@ -83,16 +85,17 @@ button {
 .pauseButton {
   background-color: transparent;
   padding: 0;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 20px;
   justify-content: flex-end;
   align-items: baseline;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5px;
+  left: auto;
+  right: 10px;
 }
 
 .pauseImage {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 20px;
 }

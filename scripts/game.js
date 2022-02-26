@@ -16,6 +16,8 @@ class Game {
     this.player = new Player(this);
     this.enemies = [];
     this.strikes = [];
+    this.strikeCount = 30;
+    this.packs = [];
 
     this.displayScreen('play');
     this.loop();
@@ -65,8 +67,11 @@ class Game {
             this.player.x += 10;
             break;
           case 'Space':
-            event.preventDefault();
-            this.fireStrike();
+            if (this.strikeCount > 0) {
+              event.preventDefault();
+              this.fireStrike();
+              this.strikeCount -= 1;
+            }
             break;
         }
       }
@@ -74,7 +79,6 @@ class Game {
   }
 
   fireStrike() {
-    // something wrong here
     const strike = new Strike(
       this,
       this.player.x + this.player.width - 5,
@@ -86,9 +90,17 @@ class Game {
   generateEnemy() {
     const enemySpeed = Math.random() + 0.5;
     const enemyX = this.canvas.width;
-    const enemyY = Math.random() * this.canvas.height - 30; // 30 = height of enemy
+    const enemyY = Math.random() * this.canvas.height - 40; // 30 = height of enemy
     const enemy = new Enemy(this, enemyX, enemyY, enemySpeed);
     this.enemies.push(enemy);
+  }
+
+  generatePack() {
+    const packSpeed = Math.random() + 0.05;
+    const packX = this.canvas.width;
+    const packY = Math.random() * this.canvas.height - 40; // 30 = height of enemy
+    const pack = new StrikePack(this, packX, packY, packSpeed);
+    this.packs.push(pack);
   }
 
   // powerUp() {
@@ -125,11 +137,17 @@ class Game {
     if (Math.random() < 0.01) {
       this.generateEnemy();
     }
+    if (Math.random() < 0.0025) {
+      this.generatePack();
+    }
     for (const enemy of this.enemies) {
       this.runEnemyLogic(enemy);
     }
     for (const strike of this.strikes) {
       this.runStrikeLogic(strike);
+    }
+    for (const pack of this.packs) {
+      this.runPackLogic(pack);
     }
     if (this.score <= 0) {
       this.lose();
@@ -168,9 +186,25 @@ class Game {
     }
   }
 
+  runPackLogic(pack) {
+    pack.runLogic();
+    // if pack and player are intersecting, add 20 to array of strikes
+    const packAndPlayerIntersecting = pack.checkIntersection(this.player);
+    if (packAndPlayerIntersecting) {
+      const indexOfPack = this.packs.indexOf(pack);
+      this.packs.splice(indexOfPack, 1);
+      this.strikes += 20;
+    }
+  }
+
   drawScore() {
-    this.context.font = '25px Gill Sans';
-    this.context.fillText(`Score: ${this.score}`, 565, 485);
+    this.context.font = '20px Gill Sans';
+    this.context.fillText(`Score: ${this.score}`, 595, 490);
+  }
+
+  drawStrike() {
+    this.context.font = '20px Gill Sans';
+    this.context.fillText(`Strikes: ${this.strikeCount}`, 450, 490);
   }
 
   draw() {
@@ -181,10 +215,14 @@ class Game {
     for (const strike of this.strikes) {
       strike.draw();
     }
+    for (const pack of this.packs) {
+      pack.draw();
+    }
     // for (const powerUp of this.powerUps) {
     //   powerUp.draw();
     // }
     this.player.draw();
     this.drawScore();
+    this.drawStrike();
   }
 }

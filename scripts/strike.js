@@ -16,8 +16,6 @@ class Strike {
 
   draw() {
     this.game.context.save();
-    // this.game.context.fillStyle = 'blue';
-    // this.game.context.fillRect(this.x, this.y, this.width, this.height);
     this.game.context.drawImage(
       strikeImage,
       this.x,
