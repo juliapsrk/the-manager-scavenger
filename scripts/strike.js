@@ -1,10 +1,13 @@
+const strikeImage = new Image();
+strikeImage.src = '/images/strike1.png';
+
 class Strike {
   constructor(gameInstance, x, y) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
-    this.width = 10;
-    this.height = 10;
+    this.width = 25;
+    this.height = 25;
   }
 
   runLogic() {
@@ -13,8 +16,15 @@ class Strike {
 
   draw() {
     this.game.context.save();
-    this.game.context.fillStyle = 'blue';
-    this.game.context.fillRect(this.x, this.y, this.width, this.height);
+    // this.game.context.fillStyle = 'blue';
+    // this.game.context.fillRect(this.x, this.y, this.width, this.height);
+    this.game.context.drawImage(
+      strikeImage,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
     this.game.context.restore();
   }
 }

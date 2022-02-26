@@ -31,8 +31,6 @@
     // you loose when you hit 0
     // no max. limit
 
-// Game-Over
-
 // game-over message: "New Pay-check. You're gonna be stuck in this rat-race forever, looser."
 
 // increase obstacle speed, increment every 30 seconds for example

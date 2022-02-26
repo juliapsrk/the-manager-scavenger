@@ -9,14 +9,17 @@
 //         this.context.drawImage(this.image, this.x, this.y, this.width, this.height);
 //     }
 // }
+
 // const basicEnemyImage = new Image();
-// basicEnemyImage.src = ‘’;
+// basicEnemyImage.src = '';
 // const advancedEnemyImage = new Image();
-// advancedEnemyImage.src = ‘’;
+// advancedEnemyImage.src = '';
+
 // const enemyConfigurations = [
 //     { speed: 3, points: 1, image: basicEnemyImage },
 //     { speed: 1, points: 5, image: advancedEnemyImage },
 // ]
+
 // class Game {
 //     addRandomEnemy () {
 //       const enemyConfiguration = enemyConfigurations[Math.floor(Math.random() * enemyConfigurations.length)];
