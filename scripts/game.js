@@ -103,21 +103,6 @@ class Game {
     this.packs.push(pack);
   }
 
-  // powerUp() {
-  //   const powerUpSpeed = Math.random() + 0.75;
-  //   const powerUpX = this.canvas.width;
-  //   const powerUpY = Math.random() * this.canvas.height - 30; // 30 = height of enemy
-  //   const powerUp = new PowerUp(
-  //     this,
-  //     powerUpX,
-  //     powerUpY,
-  //     powerUpSpeed,
-  //     40,
-  //     'pink'
-  //   );
-  //   this.powerUps.push(powerUp);
-  // }
-
   //     addRandomEnemy () {
   //       const enemyConfiguration = enemyConfigurations[Math.floor(Math.random() * enemyConfigurations.length)];
   //         this.enemies.push(new Enemy(this, x, y, enemyConfiguration.speed, enemyConfiguration.points, enemyConfiguration.image));
@@ -171,8 +156,8 @@ class Game {
     for (const enemy of this.enemies) {
       // if enemy and strike are intersecting,
       // remove enemy from array of enemies and remove strike from array of strikes
-      const spellAndEnemyIntersecting = enemy.checkIntersection(strike);
-      if (spellAndEnemyIntersecting) {
+      const strikeAndEnemyIntersecting = enemy.checkIntersection(strike);
+      if (strikeAndEnemyIntersecting) {
         const indexOfEnemy = this.enemies.indexOf(enemy);
         this.enemies.splice(indexOfEnemy, 1);
         const indexOfStrike = this.strikes.indexOf(strike);
@@ -193,7 +178,7 @@ class Game {
     if (packAndPlayerIntersecting) {
       const indexOfPack = this.packs.indexOf(pack);
       this.packs.splice(indexOfPack, 1);
-      this.strikes += 20;
+      this.strikeCount += 20;
     }
   }
 

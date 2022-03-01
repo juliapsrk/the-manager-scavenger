@@ -9,6 +9,7 @@ class StrikePack {
     this.speed = speed;
     this.width = 30;
     this.height = 30;
+    this.duration = 5;
   }
 
   checkIntersection(element) {
@@ -26,11 +27,12 @@ class StrikePack {
 
   runLogic() {
     this.x -= this.speed;
+    // this.y = -(float)Math.cos(this.x / 200) * 5;
+    // this.x -= Math.sin(this.speed);
+
     // different moving behavior
-    // remove x and y simultaneously
     // Math.sin()
     // this.x -= Math.sin(this.speed) (maybe?)
-    // ask Martin
   }
 
   draw() {

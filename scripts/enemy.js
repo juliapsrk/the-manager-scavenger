@@ -1,9 +1,9 @@
 const basicEnemy = new Image();
 basicEnemy.src = '/images/enemy-email.png';
-// const mediumEnemy = new Image();
-// mediumEnemy.src = '/images/enemy-meeting.png';
-// const advancedEnemy = new Image();
-// advancedEnemy.src = '/images/enemy-boss.png';
+const mediumEnemy = new Image();
+mediumEnemy.src = '/images/enemy-meeting.png';
+const advancedEnemy = new Image();
+advancedEnemy.src = '/images/enemy-boss.png';
 
 // const enemyConfigurations = [
 //    { speed: 5, points: 5, image: basicEnemy },
@@ -21,7 +21,6 @@ class Enemy {
     this.height = 30;
     // // not yet used:
     // this.points = points;
-    // // not yet used:
     // this.image = image;
   }
 
