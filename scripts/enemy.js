@@ -6,16 +6,28 @@ const advancedEnemy = new Image();
 advancedEnemy.src = '/images/enemy-boss.png';
 
 class Enemy {
-  constructor(gameInstance, x, y, speed, points, image) {
+  constructor(
+    gameInstance,
+    x,
+    y,
+    speed,
+    points,
+    image,
+    startingY,
+    width,
+    height
+  ) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
+    this.startingY = startingY;
     this.angle = Math.PI / 360; // 1 degrees
-    this.width = 45;
-    this.height = 30;
+    this.width = width;
+    this.height = height;
     this.speed = speed;
     this.points = points;
     this.image = image;
+    this.angle = 0;
   }
 
   checkIntersection(element) {
@@ -33,6 +45,11 @@ class Enemy {
 
   runLogic() {
     this.x -= this.speed;
+    this.angle++;
+    this.y =
+      (this.height / 2) * Math.sin(this.angle * (Math.PI / 180)) +
+      this.startingY;
+    this.y = Clamp(this.y, 10, 440);
   }
 
   draw() {
@@ -41,20 +58,16 @@ class Enemy {
     // this.game.context.fillRect(this.x, this.y, this.width, this.height);
     this.game.context.drawImage(
       // work out image change due to random enemy:
-      basicEnemy,
-      // this.image,
+      this.image,
       this.x,
       this.y,
       this.width,
       this.height
     );
     this.game.context.restore();
-    // console.log('draw this.y:' + this.y);
   }
 }
 
-const enemyConfigurations = [
-  { speed: 5, points: 5, image: basicEnemy },
-  { speed: 3, points: 10, image: mediumEnemy },
-  { speed: 1, points: 15, image: advancedEnemy }
-];
+function Clamp(n, min, max) {
+  return Math.min(Math.max(n, min), max);
+}

@@ -18,6 +18,7 @@ class Game {
     this.strikes = [];
     this.strikeCount = 25;
     this.packs = [];
+    this.difficulty = 0;
 
     this.displayScreen('play');
     this.loop();
@@ -103,32 +104,31 @@ class Game {
     this.strikes.push(strike);
   }
 
-  generateEnemy() {
-    const enemySpeed = Math.random() + 0.5;
+  generateEnemy(dif) {
+    // (or instead of 'dif' write '3')
+    // const enemySpeed = Math.random() + 0.5;
     const enemyX = this.canvas.width;
     const enemyY = Math.random() * 490;
-    const randomEnemy = Math.floor(Math.random() * 3);
-    // this.enemy.angle++;
-    // const enemyY =
-    //   enemy.y * Math.sin(enemy.angle * enemy.speed * (Math.PI / 180));
+    const randomEnemy = Math.floor(Math.random() * dif); // (or instead of 'dif' write '3')
+    const enemyConfigurations = [
+      { speed: 1, points: 10, image: basicEnemy, width: 45, height: 30 },
+      { speed: 3, points: 20, image: mediumEnemy, width: 50, height: 50 },
+      { speed: 0.5, points: 50, image: advancedEnemy, width: 70, height: 70 }
+    ];
 
     const enemy = new Enemy(
       this,
       enemyX,
       enemyY,
-      enemySpeed[0],
-      enemyConfigurations[0].points,
-      enemyConfigurations[0].image
+      enemyConfigurations[randomEnemy].speed,
+      enemyConfigurations[randomEnemy].points,
+      enemyConfigurations[randomEnemy].image,
+      enemyY,
+      enemyConfigurations[randomEnemy].width,
+      enemyConfigurations[randomEnemy].height
     );
     this.enemies.push(enemy);
   }
-
-  //  generateRandomEnemy () {
-  //  const enemyConfiguration = enemyConfigurations[Math.floor(Math.random()
-  // * enemyConfigurations.length)];
-  //  this.enemies.push(new Enemy(this, x, y, enemyConfiguration.speed,
-  // enemyConfiguration.points, enemyConfiguration.image));
-  // }
 
   generatePack() {
     const packSpeed = Math.random() + 0.05;
@@ -137,11 +137,6 @@ class Game {
     const pack = new StrikePack(this, packX, packY, packSpeed);
     this.packs.push(pack);
   }
-
-  //     addRandomEnemy () {
-  //       const enemyConfiguration = enemyConfigurations[Math.floor(Math.random() * enemyConfigurations.length)];
-  //         this.enemies.push(new Enemy(this, x, y, enemyConfiguration.speed, enemyConfiguration.points, enemyConfiguration.image));
-  //     }
 
   loop() {
     window.requestAnimationFrame(() => {
@@ -154,9 +149,20 @@ class Game {
   }
 
   runLogic() {
+    if (this.score <= 150) {
+      this.difficulty = 1;
+    } else if (this.score > 150 && this.score <= 300) {
+      this.difficulty = 2;
+    } else if (this.score > 300) {
+      this.difficulty = 3;
+    }
+
     if (Math.random() < 0.01) {
-      this.generateEnemy();
-      console.log('working');
+      if ((this.difficulty = 1)) this.generateEnemy(0);
+      else if ((this.difficulty = 2)) this.generateEnemy(1);
+      else if ((this.difficulty = 3)) this.generateEnemy(2);
+
+      // this.generateEnemy();
     }
     if (Math.random() < 0.0025) {
       this.generatePack();
@@ -182,8 +188,8 @@ class Game {
     const enemyOutOfBounds = enemy.x + enemy.width < 0;
     if (enemyAndPlayerIntersecting || enemyOutOfBounds) {
       const indexOfEnemy = this.enemies.indexOf(enemy);
+      this.score -= enemy.points;
       this.enemies.splice(indexOfEnemy, 1);
-      this.score -= 10;
     }
   }
 
