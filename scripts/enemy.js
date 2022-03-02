@@ -1,22 +1,23 @@
 const basicEnemy = new Image();
 basicEnemy.src = '/images/enemy-email.png';
-const mediumEnemy = new Image();
-mediumEnemy.src = '/images/enemy-meeting.png';
-const advancedEnemy = new Image();
-advancedEnemy.src = '/images/enemy-boss.png';
+// const mediumEnemy = new Image();
+// mediumEnemy.src = '/images/enemy-meeting.png';
+// const advancedEnemy = new Image();
+// advancedEnemy.src = '/images/enemy-boss.png';
 
 // const enemyConfigurations = [
-//    { speed: 5, points: 5, image: basicEnemy },
-//    { speed: 3, points: 10, image: mediumEnemy },
-//    { speed: 3, points: 15, image: advancedEnemy },
+//    { speed: 5, movement: ?, points: 5, image: basicEnemy },
+//    { speed: 3, movement: ?, points: 10, image: mediumEnemy },
+//    { speed: 3, movement: ?, points: 15, image: advancedEnemy },
 // ]
 
 class Enemy {
-  constructor(gameInstance, x, y, speed /*points, image*/) {
+  constructor(gameInstance, x, y /*points, image*/) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.angle = Math.PI / 360; // 1 degrees
+    this.speed = 1;
     this.width = 45;
     this.height = 30;
     // // not yet used:
@@ -39,11 +40,6 @@ class Enemy {
 
   runLogic() {
     this.x -= this.speed;
-    // different moving behavior
-    // remove x and y simultaneously
-    // Math.sin()
-    // this.x -= Math.sin(this.speed) (maybe?)
-    // ask Martin
   }
 
   draw() {
@@ -60,5 +56,6 @@ class Enemy {
       this.height
     );
     this.game.context.restore();
+    // console.log('draw this.y:' + this.y);
   }
 }

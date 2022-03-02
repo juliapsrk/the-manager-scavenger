@@ -51,20 +51,36 @@ class Game {
         const code = event.code;
         switch (code) {
           case 'ArrowUp':
+            if (this.player.y < 10) {
+              return 0;
+            } else {
+              this.player.y -= 10;
+            }
             event.preventDefault();
-            this.player.y -= 10;
             break;
           case 'ArrowDown':
+            if (this.player.y > 440) {
+              return 0;
+            } else {
+              this.player.y += 10;
+            }
             event.preventDefault();
-            this.player.y += 10;
             break;
           case 'ArrowLeft':
+            if (this.player.x < -5) {
+              return 0;
+            } else {
+              this.player.x -= 10;
+            }
             event.preventDefault();
-            this.player.x -= 10;
             break;
           case 'ArrowRight':
+            if (this.player.x > 640) {
+              return 0;
+            } else {
+              this.player.x += 10;
+            }
             event.preventDefault();
-            this.player.x += 10;
             break;
           case 'Space':
             if (this.strikeCount > 0) {
@@ -91,6 +107,9 @@ class Game {
     const enemySpeed = Math.random() + 0.5;
     const enemyX = this.canvas.width;
     const enemyY = Math.random() * this.canvas.height - 40; // 30 = height of enemy
+    // this.enemy.angle++;
+    // const enemyY =
+    //   enemy.y * Math.sin(enemy.angle * enemy.speed * (Math.PI / 180));
     const enemy = new Enemy(this, enemyX, enemyY, enemySpeed);
     this.enemies.push(enemy);
   }

@@ -4,7 +4,6 @@ body {
 }
 
 body {
-  margin: 0;
   background-color: rgb(255, 192, 255);
   display: flex;
   flex-direction: column;
@@ -22,17 +21,23 @@ body {
 body h1 {
   font-size: 2em;
   font-weight: normal;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 body p {
   font-size: 1em;
   font-weight: lighter;
-  margin-bottom: 1em;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 body h2 {
   font-size: 1.5em;
   font-weight: normal;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 body h5 {
@@ -55,11 +60,13 @@ body h5 {
 .screen h2 {
   font-size: 1.5em;
   font-weight: normal;
+  margin: 0;
 }
 
 .screen h3 {
   font-size: 1em;
   font-weight: lighter;
+  margin: 0;
 }
 
 /* canvas {
