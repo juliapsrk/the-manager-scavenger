@@ -131,7 +131,7 @@ class Game {
   }
 
   generatePack() {
-    const packSpeed = Math.random() + 0.05;
+    const packSpeed = Math.random() + 0.5;
     const packX = this.canvas.width;
     const packY = Math.random() * 490;
     const pack = new StrikePack(this, packX, packY, packSpeed);

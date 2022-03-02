@@ -27,6 +27,7 @@ class StrikePack {
 
   runLogic() {
     this.x -= this.speed;
+    this.y = Clamp(this.y, 10, 440);
     // this.y = -(float)Math.cos(this.x / 200) * 5;
     // this.x -= Math.sin(this.speed);
 
@@ -46,4 +47,8 @@ class StrikePack {
     );
     this.game.context.restore();
   }
+}
+
+function Clamp(n, min, max) {
+  return Math.min(Math.max(n, min), max);
 }
