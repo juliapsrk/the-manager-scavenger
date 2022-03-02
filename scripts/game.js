@@ -149,11 +149,11 @@ class Game {
   }
 
   runLogic() {
-    if (this.score <= 150) {
+    if (this.score < 100) {
       this.difficulty = 1;
-    } else if (this.score > 150 && this.score <= 300) {
+    } else if (this.score >= 100 && this.score < 200) {
       this.difficulty = 2;
-    } else if (this.score > 300) {
+    } else if (this.score >= 200) {
       this.difficulty = 3;
     }
 
@@ -161,8 +161,6 @@ class Game {
       if ((this.difficulty = 1)) this.generateEnemy(0);
       else if ((this.difficulty = 2)) this.generateEnemy(1);
       else if ((this.difficulty = 3)) this.generateEnemy(2);
-
-      // this.generateEnemy();
     }
     if (Math.random() < 0.0025) {
       this.generatePack();
@@ -245,9 +243,6 @@ class Game {
     for (const pack of this.packs) {
       pack.draw();
     }
-    // for (const powerUp of this.powerUps) {
-    //   powerUp.draw();
-    // }
     this.player.draw();
     this.drawScore();
     this.drawStrike();

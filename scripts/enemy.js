@@ -45,7 +45,9 @@ class Enemy {
 
   runLogic() {
     this.x -= this.speed;
+    // wave movement:
     this.angle++;
+    // wave movement: this.height/2 --> amplitude
     this.y =
       (this.height / 2) * Math.sin(this.angle * (Math.PI / 180)) +
       this.startingY;
