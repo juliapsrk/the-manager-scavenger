@@ -16,7 +16,7 @@ class Game {
     this.player = new Player(this);
     this.enemies = [];
     this.strikes = [];
-    this.strikeCount = 30;
+    this.strikeCount = 25;
     this.packs = [];
 
     this.displayScreen('play');
@@ -98,7 +98,7 @@ class Game {
     const strike = new Strike(
       this,
       this.player.x + this.player.width - 5,
-      this.player.y + this.player.height / 2 - 10 / 2
+      this.player.y + this.player.height / 2 - 13
     );
     this.strikes.push(strike);
   }
@@ -106,18 +106,34 @@ class Game {
   generateEnemy() {
     const enemySpeed = Math.random() + 0.5;
     const enemyX = this.canvas.width;
-    const enemyY = Math.random() * this.canvas.height - 40; // 30 = height of enemy
+    const enemyY = Math.random() * 490;
+    const randomEnemy = Math.floor(Math.random() * 3);
     // this.enemy.angle++;
     // const enemyY =
     //   enemy.y * Math.sin(enemy.angle * enemy.speed * (Math.PI / 180));
-    const enemy = new Enemy(this, enemyX, enemyY, enemySpeed);
+
+    const enemy = new Enemy(
+      this,
+      enemyX,
+      enemyY,
+      enemySpeed[0],
+      enemyConfigurations[0].points,
+      enemyConfigurations[0].image
+    );
     this.enemies.push(enemy);
   }
+
+  //  generateRandomEnemy () {
+  //  const enemyConfiguration = enemyConfigurations[Math.floor(Math.random()
+  // * enemyConfigurations.length)];
+  //  this.enemies.push(new Enemy(this, x, y, enemyConfiguration.speed,
+  // enemyConfiguration.points, enemyConfiguration.image));
+  // }
 
   generatePack() {
     const packSpeed = Math.random() + 0.05;
     const packX = this.canvas.width;
-    const packY = Math.random() * this.canvas.height - 40; // 30 = height of enemy
+    const packY = Math.random() * 490;
     const pack = new StrikePack(this, packX, packY, packSpeed);
     this.packs.push(pack);
   }
@@ -140,6 +156,7 @@ class Game {
   runLogic() {
     if (Math.random() < 0.01) {
       this.generateEnemy();
+      console.log('working');
     }
     if (Math.random() < 0.0025) {
       this.generatePack();

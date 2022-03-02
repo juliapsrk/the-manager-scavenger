@@ -1,5 +1,5 @@
 const strikePack = new Image();
-strikePack.src = '/images/strike2.png';
+strikePack.src = '/images/powerUp-battery.png';
 
 class StrikePack {
   constructor(gameInstance, x, y, speed) {
@@ -7,9 +7,9 @@ class StrikePack {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.width = 30;
-    this.height = 30;
-    this.duration = 5;
+    this.width = 45;
+    this.height = 50;
+    // this.duration = 5;
   }
 
   checkIntersection(element) {

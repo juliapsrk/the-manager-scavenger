@@ -1,28 +1,21 @@
 const basicEnemy = new Image();
 basicEnemy.src = '/images/enemy-email.png';
-// const mediumEnemy = new Image();
-// mediumEnemy.src = '/images/enemy-meeting.png';
-// const advancedEnemy = new Image();
-// advancedEnemy.src = '/images/enemy-boss.png';
-
-// const enemyConfigurations = [
-//    { speed: 5, movement: ?, points: 5, image: basicEnemy },
-//    { speed: 3, movement: ?, points: 10, image: mediumEnemy },
-//    { speed: 3, movement: ?, points: 15, image: advancedEnemy },
-// ]
+const mediumEnemy = new Image();
+mediumEnemy.src = '/images/enemy-meeting.png';
+const advancedEnemy = new Image();
+advancedEnemy.src = '/images/enemy-boss.png';
 
 class Enemy {
-  constructor(gameInstance, x, y /*points, image*/) {
+  constructor(gameInstance, x, y, speed, points, image) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
     this.angle = Math.PI / 360; // 1 degrees
-    this.speed = 1;
     this.width = 45;
     this.height = 30;
-    // // not yet used:
-    // this.points = points;
-    // this.image = image;
+    this.speed = speed;
+    this.points = points;
+    this.image = image;
   }
 
   checkIntersection(element) {
@@ -59,3 +52,9 @@ class Enemy {
     // console.log('draw this.y:' + this.y);
   }
 }
+
+const enemyConfigurations = [
+  { speed: 5, points: 5, image: basicEnemy },
+  { speed: 3, points: 10, image: mediumEnemy },
+  { speed: 1, points: 15, image: advancedEnemy }
+];

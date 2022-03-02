@@ -1,13 +1,13 @@
 const strikeImage = new Image();
-strikeImage.src = '/images/strike1.png';
+strikeImage.src = '/images/strike4.png';
 
 class Strike {
   constructor(gameInstance, x, y) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
-    this.width = 25;
-    this.height = 25;
+    this.width = 20;
+    this.height = 18;
   }
 
   runLogic() {
