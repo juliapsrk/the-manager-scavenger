@@ -141,7 +141,7 @@ class Game {
   }
 
   generatePowerUp() {
-    const powerUpSpeed = Math.random() + 0.5;
+    const powerUpSpeed = Math.random() + 0.25;
     const powerUpX = this.canvas.width;
     const powerUpY = Math.random() * 490;
     const powerUp = new PowerUp(this, powerUpX, powerUpY, powerUpSpeed);
