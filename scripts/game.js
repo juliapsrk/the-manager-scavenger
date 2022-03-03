@@ -7,6 +7,7 @@ class Game {
     this.screens = screens;
     this.running = false;
     this.enableControls();
+    // this.enableShootControls();
     this.pause();
   }
 
@@ -18,6 +19,7 @@ class Game {
     this.strikes = [];
     this.strikeCount = 25;
     this.packs = [];
+    this.powerUps = [];
     this.difficulty = 0;
 
     this.displayScreen('play');
@@ -112,20 +114,20 @@ class Game {
     const randomEnemy = Math.floor(Math.random() * dif); // (or instead of 'dif' write '3')
     const enemyConfigurations = [
       { speed: 1, points: 10, image: basicEnemy, width: 45, height: 30 },
-      { speed: 3, points: 20, image: mediumEnemy, width: 50, height: 50 },
-      { speed: 0.5, points: 50, image: advancedEnemy, width: 70, height: 70 }
+      { speed: 1.5, points: 20, image: mediumEnemy, width: 50, height: 45 },
+      { speed: 0.5, points: 50, image: advancedEnemy, width: 85, height: 85 }
     ];
 
     const enemy = new Enemy(
       this,
       enemyX,
       enemyY,
-      enemyConfigurations[randomEnemy].speed,
-      enemyConfigurations[randomEnemy].points,
-      enemyConfigurations[randomEnemy].image,
+      enemyConfigurations[dif].speed,
+      enemyConfigurations[dif].points,
+      enemyConfigurations[dif].image,
       enemyY,
-      enemyConfigurations[randomEnemy].width,
-      enemyConfigurations[randomEnemy].height
+      enemyConfigurations[dif].width,
+      enemyConfigurations[dif].height
     );
     this.enemies.push(enemy);
   }
@@ -136,6 +138,14 @@ class Game {
     const packY = Math.random() * 490;
     const pack = new StrikePack(this, packX, packY, packSpeed);
     this.packs.push(pack);
+  }
+
+  generatePowerUp() {
+    const powerUpSpeed = Math.random() + 0.5;
+    const powerUpX = this.canvas.width;
+    const powerUpY = Math.random() * 490;
+    const powerUp = new PowerUp(this, powerUpX, powerUpY, powerUpSpeed);
+    this.powerUps.push(powerUp);
   }
 
   loop() {
@@ -149,21 +159,26 @@ class Game {
   }
 
   runLogic() {
-    if (this.score < 100) {
+    if (this.score < 80) {
       this.difficulty = 1;
-    } else if (this.score >= 100 && this.score < 200) {
+    } else if (this.score >= 80 && this.score < 100) {
       this.difficulty = 2;
-    } else if (this.score >= 200) {
+    } else if (this.score >= 100) {
       this.difficulty = 3;
     }
 
     if (Math.random() < 0.01) {
-      if ((this.difficulty = 1)) this.generateEnemy(0);
-      else if ((this.difficulty = 2)) this.generateEnemy(1);
-      else if ((this.difficulty = 3)) this.generateEnemy(2);
+      if (this.difficulty === 1) this.generateEnemy(Math.floor(Math.random()));
+      else if (this.difficulty === 2)
+        this.generateEnemy(Math.floor(Math.random() * 2));
+      else if (this.difficulty === 3)
+        this.generateEnemy(Math.floor(Math.random() * 3));
     }
     if (Math.random() < 0.0025) {
       this.generatePack();
+    }
+    if (Math.random() < 0.0025) {
+      this.generatePowerUp();
     }
     for (const enemy of this.enemies) {
       this.runEnemyLogic(enemy);
@@ -173,6 +188,9 @@ class Game {
     }
     for (const pack of this.packs) {
       this.runPackLogic(pack);
+    }
+    for (const powerUp of this.powerUps) {
+      this.runPowerUpLogic(powerUp);
     }
     if (this.score <= 0) {
       this.lose();
@@ -222,6 +240,17 @@ class Game {
     }
   }
 
+  runPowerUpLogic(powerUp) {
+    powerUp.runLogic();
+    // if powerUp and player are intersecting, add 20 to array of strikes
+    const powerUpAndPlayerIntersecting = powerUp.checkIntersection(this.player);
+    if (powerUpAndPlayerIntersecting) {
+      const indexOfPowerUp = this.powerUps.indexOf(powerUp);
+      this.powerUps.splice(indexOfPowerUp, 1);
+      this.score += 25;
+    }
+  }
+
   drawScore() {
     this.context.font = '20px Gill Sans';
     this.context.fillText(`Score: ${this.score}`, 595, 490);
@@ -243,10 +272,11 @@ class Game {
     for (const pack of this.packs) {
       pack.draw();
     }
+    for (const powerUp of this.powerUps) {
+      powerUp.draw();
+    }
     this.player.draw();
     this.drawScore();
     this.drawStrike();
   }
 }
-
-// lala

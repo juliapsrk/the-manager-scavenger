@@ -1,25 +1,25 @@
-const strikePack = new Image();
-strikePack.src = '/images/powerUp-battery.png';
+const powerUp = new Image();
+powerUp.src = '/images/powerUp-vacay.png';
 
-class StrikePack {
+class PowerUp {
   constructor(gameInstance, x, y, speed) {
     this.game = gameInstance;
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.width = 45;
-    this.height = 50;
+    this.width = 40;
+    this.height = 40;
   }
 
   checkIntersection(element) {
     return (
-      // is right edge of player in front of left edge of strikePack
+      // is right edge of player in front of left edge of powerUp
       element.x + element.width > this.x &&
-      // is left edge of player before right edge of strikePack
+      // is left edge of player before right edge of powerUp
       element.x < this.x + this.width &&
-      // is bottom edge of player below of top edge of strikePack
+      // is bottom edge of player below of top edge of powerUp
       element.y + element.height > this.y &&
-      // is top edge of player above bottom edge of strikePack
+      // is top edge of player above bottom edge of powerUp
       element.y < this.y + this.height
     );
   }
@@ -32,7 +32,7 @@ class StrikePack {
   draw() {
     this.game.context.save();
     this.game.context.drawImage(
-      strikePack,
+      powerUp,
       this.x,
       this.y,
       this.width,
