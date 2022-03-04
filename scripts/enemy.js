@@ -56,10 +56,19 @@ class Enemy {
     // wave movement:
     this.angle++;
     // wave movement: this.height/2 --> amplitude
+
     this.y =
       this.maxAmplitude * Math.sin(this.angle * (Math.PI / 180)) +
       this.startingY;
     this.y = Clamp(this.y, 10, 440);
+    // if (this.y === 10) {
+    //   this.y += 1;
+    //   this.angle += -45;
+    // }
+    // if (this.y === 440) {
+    //   this.y -= 1;
+    //   this.angle += 45;
+    // }
   }
 
   draw() {

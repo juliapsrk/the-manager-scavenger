@@ -11,7 +11,7 @@ class Strike {
   }
 
   runLogic() {
-    this.x += 1;
+    this.x += 2;
   }
 
   draw() {

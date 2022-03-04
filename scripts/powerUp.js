@@ -7,8 +7,8 @@ class PowerUp {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.width = 45;
-    this.height = 45;
+    this.width = 50;
+    this.height = 50;
   }
 
   checkIntersection(element) {

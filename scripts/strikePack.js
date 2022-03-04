@@ -7,8 +7,8 @@ class StrikePack {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.width = 45;
-    this.height = 50;
+    this.width = 20;
+    this.height = 35;
   }
 
   checkIntersection(element) {

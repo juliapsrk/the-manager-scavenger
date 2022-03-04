@@ -10,7 +10,6 @@ class Game {
     this.screens = screens;
     this.running = false;
     this.enableControls();
-    // this.enableShootControls();
     this.pause();
   }
 
@@ -25,6 +24,7 @@ class Game {
     this.packs = [];
     this.powerUps = [];
     this.difficulty = 0;
+    this.kills = [];
 
     this.displayScreen('play');
     this.loop();
@@ -40,7 +40,18 @@ class Game {
   lose() {
     this.running = false;
     this.displayScreen('end');
+    this.killsText = this.screens['end'].querySelector('h3 > span');
+    this.killsText.innerText = this.kills;
   }
+
+  // generateKill() {
+  //   const totalKills = document.querySelector('#totalKills span');
+
+  //   let total = 0;
+  //   [...kills].forEach((kill) => this.kills.push(kill));
+
+  //   total.innerText = totalKills;
+  // }
 
   pause() {
     this.running = false;
@@ -61,7 +72,7 @@ class Game {
             if (this.player.y < 10) {
               return 0;
             } else {
-              this.player.y -= 10;
+              this.player.y -= 15;
             }
             event.preventDefault();
             break;
@@ -69,7 +80,7 @@ class Game {
             if (this.player.y > 440) {
               return 0;
             } else {
-              this.player.y += 10;
+              this.player.y += 15;
             }
             event.preventDefault();
             break;
@@ -77,7 +88,7 @@ class Game {
             if (this.player.x < -5) {
               return 0;
             } else {
-              this.player.x -= 10;
+              this.player.x -= 15;
             }
             event.preventDefault();
             break;
@@ -85,7 +96,7 @@ class Game {
             if (this.player.x > 640) {
               return 0;
             } else {
-              this.player.x += 10;
+              this.player.x += 15;
             }
             event.preventDefault();
             break;
@@ -99,7 +110,6 @@ class Game {
         }
       }
     });
-    // window.addEventListener('mousemove', mouseMoveHandler, false);
   }
 
   generateFireStrike() {
@@ -155,7 +165,7 @@ class Game {
         speed: 0.5,
         points: 50,
         image: advancedEnemy,
-        width: 85,
+        width: 80,
         height: 85,
         health: 15,
         typeOfEnemy: 'advancedEnemy',
@@ -297,6 +307,8 @@ class Game {
           if (enemy.health <= 0) {
             const indexOfEnemy = this.enemies.indexOf(enemy);
             this.enemies.splice(indexOfEnemy, 1);
+            // this.kills++;
+            // console.log(`Kills: ${this.kills}`);
           } else {
             enemy.health -= 5;
           }

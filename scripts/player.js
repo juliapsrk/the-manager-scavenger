@@ -6,8 +6,8 @@ class Player {
     this.game = gameInstance;
     this.x = 100;
     this.y = 200;
-    this.width = 60;
-    this.height = 65;
+    this.width = 35;
+    this.height = 40;
     this.frame = 1;
   }
 
