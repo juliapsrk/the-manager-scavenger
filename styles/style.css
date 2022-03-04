@@ -25,14 +25,15 @@ body {
   justify-content: flex-start;
   align-items: stretch;
   align-content: stretch;
+  width: 2100px;
 }
 
 /* instructions, gameScreen, controls */
 .midSection {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: stretch;
   align-content: stretch;
 }
@@ -45,6 +46,7 @@ body {
   justify-content: flex-start;
   align-items: stretch;
   align-content: stretch;
+  width: 700px;
 }
 
 h1 {
@@ -62,33 +64,35 @@ p {
 }
 
 /* left */
-.midSection.instructions {
+.midSection .instructions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: stretch;
+  align-content: center;
+  width: 700px;
 }
 
 /* center */
 .midSection .gameScreen {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: stretch;
+  align-content: center;
 }
 
 /* right */
-.midSection.controls {
+.midSection .controls {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: stretch;
+  align-content: center;
+  width: 700px;
 }
 
 .gameScreen .screen {
