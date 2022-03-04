@@ -1,5 +1,5 @@
 const strikeImage = new Image();
-strikeImage.src = '/images/strike4.png';
+strikeImage.src = '/images/strike.png';
 
 class Strike {
   constructor(gameInstance, x, y) {

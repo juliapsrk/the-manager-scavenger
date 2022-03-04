@@ -1,5 +1,5 @@
 const powerUp = new Image();
-powerUp.src = '/images/powerUp-vacay.png';
+powerUp.src = '/images/powerUp.png';
 
 class PowerUp {
   constructor(gameInstance, x, y, speed) {

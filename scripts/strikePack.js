@@ -1,5 +1,5 @@
 const strikePack = new Image();
-strikePack.src = '/images/powerUp-battery.png';
+strikePack.src = '/images/strikePack.png';
 
 class StrikePack {
   constructor(gameInstance, x, y, speed) {

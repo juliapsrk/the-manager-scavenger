@@ -15,7 +15,11 @@ class Enemy {
     image,
     startingY,
     width,
-    height
+    height,
+    maxAmplitude,
+    health,
+    typeOfEnemy,
+    shots
   ) {
     this.game = gameInstance;
     this.x = x;
@@ -27,7 +31,11 @@ class Enemy {
     this.speed = speed;
     this.points = points;
     this.image = image;
+    this.health = health;
     this.angle = 0;
+    this.maxAmplitude = maxAmplitude;
+    this.typeOfEnemy = typeOfEnemy;
+    this.shots = shots;
   }
 
   checkIntersection(element) {
@@ -49,7 +57,7 @@ class Enemy {
     this.angle++;
     // wave movement: this.height/2 --> amplitude
     this.y =
-      (this.height / 2) * Math.sin(this.angle * (Math.PI / 180)) +
+      this.maxAmplitude * Math.sin(this.angle * (Math.PI / 180)) +
       this.startingY;
     this.y = Clamp(this.y, 10, 440);
   }

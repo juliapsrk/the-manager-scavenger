@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+​​<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -8,38 +8,66 @@
   </head>
 
   <body>
-    <h1>The Manager Scavenger</h1>
-    <p>
-      A passive-aggressive game for people who<br />love their bosses and
-      corporate jobs
-    </p>
-    <section class="screen">
-      <!-- hasn't started yet -->
-      <div class="screen" id="start-screen">
-        <button>Start Game</button>
-      </div>
-      <!-- playing -->
-      <div class="screen" id="playing-screen" style="display: none">
-        <canvas width="700" height="500"></canvas>
-        <button type="button" class="pauseButton">
-          <img src="/images/pause.png" class="pauseImage" />
-        </button>
-      </div>
-      <!-- has lost -->
-      <div class="screen" id="game-over-screen" style="display: none">
-        <h2>You Lost</h2>
-        <h3>You're still stuck in your 9-5 job.</h3>
-        <h5>To get a chance at obtaining freedom:</h5>
-        <button>Try Again</button>
-      </div>
-    </section>
-    <footer>
-      <h2>Controls</h2>
+    <div class="titleSection">
+      <h1>The Manager Scavenger</h1>
       <p>
-        Use the arrow-keys to move the player in each horizontal and vertical
-        direction<br />Use the space bar to shoot
+        A passive-aggressive game for people who<br />love their bosses and
+        corporate jobs
       </p>
-    </footer>
+    </div>
+
+    <div class="midSection">
+      <div class="instructions">
+        <h1>Instructions</h1>
+        <p>
+          You're stuck in your 9-5 job and need a break.<br />Fight off the
+          obstacles (emails, zoom calls, your boss)<br />and collect powerUps
+          (batteries and vacations) to not<br />get stuck in the corporate rat
+          race.
+        </p>
+      </div>
+      <div class="gameScreen">
+        <div class="screen">
+          <!-- hasn't started yet -->
+          <div class="screen" id="start-screen">
+            <button>Start Game</button>
+          </div>
+          <!-- playing -->
+          <div class="screen" id="playing-screen" style="display: none">
+            <canvas width="700" height="500"></canvas>
+            <button type="button" class="pauseButton">
+              <img src="/images/pause.png" class="pauseImage" />
+            </button>
+          </div>
+          <!-- has lost -->
+          <div class="screen" id="game-over-screen" style="display: none">
+            <h2>You Lost</h2>
+            <h3>You're still stuck in your 9-5 job.</h3>
+            <h5>To get a chance at obtaining freedom:</h5>
+            <button>Try Again</button>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <h1>Controls</h1>
+        <p>
+          Use the arrow-keys to move the player in each horizontal and vertical
+          direction<br />Use the space bar to shoot
+        </p>
+      </div>
+    </div>
+
+    <div class="aboutSection">
+      <footer>
+        <h1>About the Creator</h1>
+        <p>
+          This game was developed by Julia.<br />Ironhack WebDev PT Bootcamp
+          2022
+        </p>
+      </footer>
+    </div>
+
+    <script src="scripts/bossAttack.js"></script>
     <script src="scripts/powerUp.js"></script>
     <script src="scripts/strikePack.js"></script>
     <script src="scripts/strike.js"></script>

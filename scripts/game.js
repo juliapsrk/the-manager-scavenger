@@ -1,4 +1,7 @@
-// sound code
+const enemyBumpSound = new Audio();
+enemyBumpSound.src = '/sounds/enemyBump.wav';
+const attackSound = new Audio();
+attackSound.src = '/sounds/attack.wav';
 
 class Game {
   constructor(canvasElement, screens) {
@@ -16,6 +19,7 @@ class Game {
     this.score = 100;
     this.player = new Player(this);
     this.enemies = [];
+    this.attacks = [];
     this.strikes = [];
     this.strikeCount = 25;
     this.packs = [];
@@ -88,22 +92,36 @@ class Game {
           case 'Space':
             if (this.strikeCount > 0) {
               event.preventDefault();
-              this.fireStrike();
+              this.generateFireStrike();
               this.strikeCount -= 1;
             }
             break;
         }
       }
     });
+    // window.addEventListener('mousemove', mouseMoveHandler, false);
   }
 
-  fireStrike() {
+  generateFireStrike() {
     const strike = new Strike(
       this,
       this.player.x + this.player.width - 5,
       this.player.y + this.player.height / 2 - 13
     );
     this.strikes.push(strike);
+  }
+
+  generateBossAttack(enemy) {
+    const attack = new BossAttack(
+      this,
+      enemy.x + enemy.width / 2,
+      enemy.y + enemy.height
+    );
+    this.attacks.push(attack);
+  }
+
+  getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
   }
 
   generateEnemy(dif) {
@@ -113,10 +131,39 @@ class Game {
     const enemyY = Math.random() * 490;
     const randomEnemy = Math.floor(Math.random() * dif); // (or instead of 'dif' write '3')
     const enemyConfigurations = [
-      { speed: 1, points: 10, image: basicEnemy, width: 45, height: 30 },
-      { speed: 1.5, points: 20, image: mediumEnemy, width: 50, height: 45 },
-      { speed: 0.5, points: 50, image: advancedEnemy, width: 85, height: 85 }
+      {
+        speed: 1,
+        points: 10,
+        image: basicEnemy,
+        width: 45,
+        height: 30,
+        health: 5,
+        typeOfEnemy: 'basicEnemy',
+        shots: 0
+      },
+      {
+        speed: 2,
+        points: 20,
+        image: mediumEnemy,
+        width: 50,
+        height: 45,
+        health: 5,
+        typeOfEnemy: 'mediumEnemy',
+        shots: 0
+      },
+      {
+        speed: 0.5,
+        points: 50,
+        image: advancedEnemy,
+        width: 85,
+        height: 85,
+        health: 15,
+        typeOfEnemy: 'advancedEnemy',
+        shots: 5
+      }
     ];
+
+    const randomAmplitude = this.getRandomArbitrary(15, 90);
 
     const enemy = new Enemy(
       this,
@@ -127,13 +174,17 @@ class Game {
       enemyConfigurations[dif].image,
       enemyY,
       enemyConfigurations[dif].width,
-      enemyConfigurations[dif].height
+      enemyConfigurations[dif].height,
+      randomAmplitude,
+      enemyConfigurations[dif].health,
+      enemyConfigurations[dif].typeOfEnemy,
+      enemyConfigurations[dif].shots
     );
     this.enemies.push(enemy);
   }
 
   generatePack() {
-    const packSpeed = Math.random() + 0.5;
+    const packSpeed = Math.random() + 0.75;
     const packX = this.canvas.width;
     const packY = Math.random() * 490;
     const pack = new StrikePack(this, packX, packY, packSpeed);
@@ -141,7 +192,7 @@ class Game {
   }
 
   generatePowerUp() {
-    const powerUpSpeed = Math.random() + 0.25;
+    const powerUpSpeed = Math.random() + 1;
     const powerUpX = this.canvas.width;
     const powerUpY = Math.random() * 490;
     const powerUp = new PowerUp(this, powerUpX, powerUpY, powerUpSpeed);
@@ -159,32 +210,44 @@ class Game {
   }
 
   runLogic() {
-    if (this.score < 80) {
+    if (this.score < 115) {
       this.difficulty = 1;
-    } else if (this.score >= 80 && this.score < 100) {
+    } else if (this.score >= 115 && this.score < 120) {
       this.difficulty = 2;
-    } else if (this.score >= 100) {
+    } else if (this.score >= 120) {
       this.difficulty = 3;
     }
 
-    if (Math.random() < 0.01) {
+    if (Math.random() < 0.01 && this.enemies.length < 5) {
       if (this.difficulty === 1) this.generateEnemy(Math.floor(Math.random()));
       else if (this.difficulty === 2)
         this.generateEnemy(Math.floor(Math.random() * 2));
       else if (this.difficulty === 3)
         this.generateEnemy(Math.floor(Math.random() * 3));
     }
-    if (Math.random() < 0.0025) {
+    if (Math.random() < 0.0025 && this.packs.length < 3) {
       this.generatePack();
     }
-    if (Math.random() < 0.0025) {
+    if (Math.random() < 0.0025 && this.powerUps.length < 1) {
       this.generatePowerUp();
     }
+    this.enemies.forEach((enemy) => {
+      if (enemy.typeOfEnemy === 'advancedEnemy') {
+        if (Math.random() < 0.01 && enemy.shots >= 1) {
+          this.generateBossAttack(enemy);
+          enemy.shots--;
+        }
+      }
+    });
+
     for (const enemy of this.enemies) {
       this.runEnemyLogic(enemy);
     }
     for (const strike of this.strikes) {
       this.runStrikeLogic(strike);
+    }
+    for (const attack of this.attacks) {
+      this.runBossAttackLogic(attack);
     }
     for (const pack of this.packs) {
       this.runPackLogic(pack);
@@ -202,6 +265,9 @@ class Game {
     // if enemy and player are intersecting, remove enemy from array of enemies
     const enemyAndPlayerIntersecting = enemy.checkIntersection(this.player);
     const enemyOutOfBounds = enemy.x + enemy.width < 0;
+    if (enemyAndPlayerIntersecting) {
+      enemyBumpSound.play();
+    }
     if (enemyAndPlayerIntersecting || enemyOutOfBounds) {
       const indexOfEnemy = this.enemies.indexOf(enemy);
       this.score -= enemy.points;
@@ -216,16 +282,47 @@ class Game {
       // remove enemy from array of enemies and remove strike from array of strikes
       const strikeAndEnemyIntersecting = enemy.checkIntersection(strike);
       if (strikeAndEnemyIntersecting) {
-        const indexOfEnemy = this.enemies.indexOf(enemy);
-        this.enemies.splice(indexOfEnemy, 1);
+        // const indexOfEnemy = this.enemies.indexOf(enemy);
+        // this.enemies.splice(indexOfEnemy, 1);
         const indexOfStrike = this.strikes.indexOf(strike);
         this.strikes.splice(indexOfStrike, 1);
         this.score += 5;
+        if (
+          enemy.typeOfEnemy === 'basicEnemy' ||
+          enemy.typeOfEnemy === 'mediumEnemy'
+        ) {
+          const indexOfEnemy = this.enemies.indexOf(enemy);
+          this.enemies.splice(indexOfEnemy, 1);
+        } else {
+          if (enemy.health <= 0) {
+            const indexOfEnemy = this.enemies.indexOf(enemy);
+            this.enemies.splice(indexOfEnemy, 1);
+          } else {
+            enemy.health -= 5;
+          }
+        }
       }
     }
     if (strike.x - strike.width > this.canvas.width) {
       const indexOfStrike = this.strikes.indexOf(strike);
       this.strikes.splice(indexOfStrike, 1);
+    }
+  }
+
+  runBossAttackLogic(attack) {
+    attack.runLogic();
+    // if player and attack are intersecting,
+    // remove attack from array of attacks
+    const attackAndPlayerIntersecting = attack.checkIntersection(this.player);
+    if (attackAndPlayerIntersecting) {
+      const indexOfAttack = this.attacks.indexOf(attack);
+      this.attacks.splice(indexOfAttack, 1);
+      this.score -= 30;
+      attackSound.play();
+    }
+    if (attack.x - attack.width > this.canvas.width) {
+      const indexOfAttack = this.attacks.indexOf(attack);
+      this.attacks.splice(indexOfAttack, 1);
     }
   }
 
@@ -242,7 +339,7 @@ class Game {
 
   runPowerUpLogic(powerUp) {
     powerUp.runLogic();
-    // if powerUp and player are intersecting, add 20 to array of strikes
+    // if powerUp and player are intersecting, add 25 to score
     const powerUpAndPlayerIntersecting = powerUp.checkIntersection(this.player);
     if (powerUpAndPlayerIntersecting) {
       const indexOfPowerUp = this.powerUps.indexOf(powerUp);
@@ -251,14 +348,19 @@ class Game {
     }
   }
 
-  drawScore() {
-    this.context.font = '20px Gill Sans';
-    this.context.fillText(`Score: ${this.score}`, 595, 490);
-  }
-
   drawStrike() {
     this.context.font = '20px Gill Sans';
-    this.context.fillText(`Strikes: ${this.strikeCount}`, 450, 490);
+    this.context.fillText(`Strikes: ${this.strikeCount}`, 600, 490);
+  }
+
+  drawScore() {
+    this.context.font = '20px Gill Sans';
+    this.context.fillText(`Score: ${this.score}`, 315, 490);
+  }
+
+  drawLevel() {
+    this.context.font = '20px Gill Sans';
+    this.context.fillText(`Level: ${this.difficulty}`, 15, 490);
   }
 
   draw() {
@@ -269,6 +371,9 @@ class Game {
     for (const strike of this.strikes) {
       strike.draw();
     }
+    for (const attack of this.attacks) {
+      attack.draw();
+    }
     for (const pack of this.packs) {
       pack.draw();
     }
@@ -276,7 +381,8 @@ class Game {
       powerUp.draw();
     }
     this.player.draw();
-    this.drawScore();
     this.drawStrike();
+    this.drawScore();
+    this.drawLevel();
   }
 }
