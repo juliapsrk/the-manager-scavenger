@@ -18,6 +18,10 @@ body {
   text-align: center;
 }
 
+img {
+  max-width: 100%;
+}
+
 /* title, subtitle */
 .titleSection {
   display: flex;
@@ -68,22 +72,6 @@ h3 {
   margin-bottom: 20px;
 }
 
-p {
-  font-size: 0.8em;
-  font-weight: lighter;
-  margin: 0;
-  margin-bottom: 5px;
-  text-align: center;
-}
-
-.gameAndInstructionsP {
-  font-size: 0.8em;
-  font-weight: lighter;
-  margin: 0;
-  margin-bottom: 5px;
-  text-align: justify;
-}
-
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -99,14 +87,23 @@ h5 {
 }
 
 h6 {
-  font-size: 0.55em;
+  font-size: 0.7em;
   font-weight: lighter;
   margin-top: 0.1em;
   margin-bottom: 5px;
   font-style: italic;
 }
 
-/* left */
+.screen p {
+  color: darkslategrey;
+  font-size: 0.8em;
+  font-weight: lighter;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+/* left
 .midSection .instructions {
   display: flex;
   flex-direction: column;
@@ -114,7 +111,7 @@ h6 {
   justify-content: center;
   align-items: center;
   width: 300px;
-}
+} */
 
 /* center */
 .midSection .gameScreen {
@@ -126,7 +123,7 @@ h6 {
   margin: 1em 2em;
 }
 
-/* right */
+/* right
 .midSection .controls {
   display: flex;
   flex-direction: column;
@@ -134,7 +131,7 @@ h6 {
   justify-content: center;
   align-items: center;
   width: 300px;
-}
+} */
 
 .gameScreen .screen {
   background-color: rgb(245, 133, 217);
@@ -159,17 +156,22 @@ h6 {
   position: relative;
 }
 
+#information-screen {
+  background-color: rgb(245, 133, 217);
+  width: 700px;
+  height: 500px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 canvas {
   display: flex;
   object-fit: none;
   object-position: top left;
-}
-
-.screen p {
-  color: darkslategrey;
-  font-size: 0.8em;
-  font-weight: lighter;
-  text-align: justify;
 }
 
 .screen h2 {
@@ -181,8 +183,8 @@ canvas {
 .screen h3 {
   color: darkslategrey;
   font-size: 1em;
-  font-weight: lighter;
-  margin: 0;
+  font-weight: normal;
+  margin: 15px;
 }
 
 .screen h5 {
@@ -193,7 +195,7 @@ canvas {
   margin-bottom: 20px;
 }
 
-button {
+.playButton {
   font: inherit;
   font-weight: 350;
   background-color: rgb(255, 192, 255);
@@ -214,39 +216,42 @@ button {
   top: 5px;
   left: auto;
   right: 10px;
-}
-/* 
-.buttonNext {
-  background-color: transparent;
-  padding: 0;
-  width: 25px;
-  height: 20px;
-  justify-content: flex-end;
-  align-items: baseline;
-  position: absolute;
-  top: 5px;
-  left: auto;
-  right: 10px;
+  border: 0;
 }
 
-.buttonBack {
+.nextButton {
   background-color: transparent;
   padding: 0;
   width: 25px;
-  height: 20px;
+  height: 50px;
   justify-content: flex-end;
   align-items: baseline;
   position: absolute;
-  top: 5px;
+  top: auto;
   left: auto;
   right: 10px;
-} */
+  border: 0;
+}
+
+.backButton {
+  background-color: transparent;
+  padding: 0;
+  width: 25px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: auto;
+  left: 10px;
+  right: auto;
+  border: 0;
+}
 
 .pauseImage {
   width: 25px;
   height: 20px;
 }
-/* 
+
 .buttonNextImage {
   width: 25px;
   height: 20px;
@@ -255,7 +260,7 @@ button {
 .buttonBackImage {
   width: 25px;
   height: 20px;
-} */
+}
 
 .inLinePlayer {
   display: inline-block;
@@ -289,8 +294,8 @@ button {
 
 .inLinePack {
   display: inline-block;
-  width: 17px;
-  height: 30px;
+  width: 15px;
+  height: 27px;
 }
 
 .inLinePowerUp {
@@ -301,6 +306,6 @@ button {
 
 .inLineBossAttack {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 }
