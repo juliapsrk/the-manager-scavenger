@@ -220,7 +220,7 @@ class Game {
   }
 
   runLogic() {
-    if (this.score < 115) {
+    if (this.score < 100) {
       this.difficulty = 1;
     } else if (this.score >= 115 && this.score < 120) {
       this.difficulty = 2;

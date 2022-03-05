@@ -205,6 +205,16 @@ canvas {
   font-size: 1em;
 }
 
+.tryAgainButton {
+  font: inherit;
+  font-weight: 350;
+  background-color: rgb(255, 192, 255);
+  color: rgb(233, 57, 189);
+  border: 0;
+  padding: 0.5em;
+  font-size: 1em;
+}
+
 .pauseButton {
   background-color: transparent;
   padding: 0;
