@@ -24,7 +24,7 @@ class Game {
     this.packs = [];
     this.powerUps = [];
     this.difficulty = 0;
-    this.kills = [];
+    this.kills = 0;
 
     this.displayScreen('play');
     this.loop();
@@ -72,7 +72,7 @@ class Game {
             if (this.player.y < 10) {
               return 0;
             } else {
-              this.player.y -= 15;
+              this.player.y -= 20;
             }
             event.preventDefault();
             break;
@@ -80,7 +80,7 @@ class Game {
             if (this.player.y > 440) {
               return 0;
             } else {
-              this.player.y += 15;
+              this.player.y += 20;
             }
             event.preventDefault();
             break;
@@ -88,7 +88,7 @@ class Game {
             if (this.player.x < -5) {
               return 0;
             } else {
-              this.player.x -= 15;
+              this.player.x -= 20;
             }
             event.preventDefault();
             break;
@@ -96,7 +96,7 @@ class Game {
             if (this.player.x > 640) {
               return 0;
             } else {
-              this.player.x += 15;
+              this.player.x += 20;
             }
             event.preventDefault();
             break;
@@ -303,12 +303,14 @@ class Game {
         ) {
           const indexOfEnemy = this.enemies.indexOf(enemy);
           this.enemies.splice(indexOfEnemy, 1);
+          this.kills++;
+          console.log(`Kills: ${this.kills}`);
         } else {
           if (enemy.health <= 0) {
             const indexOfEnemy = this.enemies.indexOf(enemy);
             this.enemies.splice(indexOfEnemy, 1);
-            // this.kills++;
-            // console.log(`Kills: ${this.kills}`);
+            this.kills++;
+            console.log(`Kills: ${this.kills}`);
           } else {
             enemy.health -= 5;
           }
